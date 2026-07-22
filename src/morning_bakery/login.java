@@ -5,7 +5,23 @@
 package morning_bakery;
 
 import java.awt.Color;
+import java.awt.BasicStroke;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.RenderingHints;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.URL;
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 
 /**
  *
@@ -20,7 +36,7 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
-        loadLogo();
+        configureLoginView();
         setLocationRelativeTo(null);
     }
 
@@ -279,16 +295,162 @@ public class login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void configureLoginView() {
+        loadLogo();
+
+        getRootPane().setDefaultButton(loginButton);
+        passwordField.setEchoChar('\u2022');
+
+        Color normalBorder = new Color(220, 171, 125);
+        Color focusBorder = new Color(126, 78, 46);
+        installFieldBorder(usernameTextField, normalBorder, focusBorder);
+
+        decorationPanel.setOpaque(false);
+        decorationPanel.setBorder(new DiamondBorder(new Color(185, 145, 116, 170)));
+
+        Border passwordNormalBorder = BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(1, 1, 1, 0, normalBorder),
+                BorderFactory.createEmptyBorder(0, 12, 0, 8));
+        Border passwordFocusBorder = BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(1, 1, 1, 0, focusBorder),
+                BorderFactory.createEmptyBorder(0, 12, 0, 8));
+        passwordField.setBorder(passwordNormalBorder);
+        passwordField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent event) {
+                passwordField.setBorder(passwordFocusBorder);
+                showPasswordButton.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 1, focusBorder));
+            }
+
+            @Override
+            public void focusLost(FocusEvent event) {
+                passwordField.setBorder(passwordNormalBorder);
+                showPasswordButton.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 1, normalBorder));
+            }
+        });
+
+        showPasswordButton.setText("");
+        showPasswordButton.setIcon(new EyeIcon(false));
+        showPasswordButton.setContentAreaFilled(false);
+        showPasswordButton.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 1, normalBorder));
+        showPasswordButton.setToolTipText("Tampilkan password");
+        showPasswordButton.getAccessibleContext().setAccessibleName("Tampilkan password");
+
+        Color buttonNormal = new Color(105, 59, 35);
+        Color buttonHover = new Color(126, 78, 46);
+        loginButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent event) {
+                loginButton.setBackground(buttonHover);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent event) {
+                loginButton.setBackground(buttonNormal);
+            }
+        });
+    }
+
+    private void installFieldBorder(javax.swing.JTextField field, Color normalColor, Color focusColor) {
+        Border normalBorder = BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(normalColor),
+                BorderFactory.createEmptyBorder(0, 12, 0, 12));
+        Border focusBorder = BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(focusColor),
+                BorderFactory.createEmptyBorder(0, 12, 0, 12));
+        field.setBorder(normalBorder);
+        field.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent event) {
+                field.setBorder(focusBorder);
+            }
+
+            @Override
+            public void focusLost(FocusEvent event) {
+                field.setBorder(normalBorder);
+            }
+        });
+    }
+
     private void loadLogo() {
-        java.net.URL logoUrl = getClass().getResource("/morning_bakery/assets/Swiftbite.png");
+        URL logoUrl = getClass().getResource("/morning_bakery/assets/Swiftbite.png");
         if (logoUrl == null) {
+            System.err.println("Logo SwiftBite tidak ditemukan di folder assets.");
             return;
         }
 
-        javax.swing.ImageIcon icon = new javax.swing.ImageIcon(logoUrl);
-        java.awt.Image scaledImage = icon.getImage().getScaledInstance(46, 46, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(logoUrl);
+        Image scaledImage = icon.getImage().getScaledInstance(46, 46, Image.SCALE_SMOOTH);
         logoLabel.setText("");
-        logoLabel.setIcon(new javax.swing.ImageIcon(scaledImage));
+        logoLabel.setIcon(new ImageIcon(scaledImage));
+        setIconImage(icon.getImage());
+    }
+
+    private static final class EyeIcon implements Icon {
+
+        private final boolean crossed;
+
+        private EyeIcon(boolean crossed) {
+            this.crossed = crossed;
+        }
+
+        @Override
+        public int getIconWidth() {
+            return 20;
+        }
+
+        @Override
+        public int getIconHeight() {
+            return 20;
+        }
+
+        @Override
+        public void paintIcon(Component component, Graphics graphics, int x, int y) {
+            Graphics2D g2 = (Graphics2D) graphics.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(new Color(126, 78, 46));
+            g2.setStroke(new BasicStroke(1.8f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            g2.drawOval(x + 2, y + 6, 16, 9);
+            g2.fillOval(x + 8, y + 9, 4, 4);
+            if (crossed) {
+                g2.drawLine(x + 3, y + 3, x + 17, y + 17);
+            }
+            g2.dispose();
+        }
+    }
+
+    private static final class DiamondBorder implements Border {
+
+        private final Color color;
+
+        private DiamondBorder(Color color) {
+            this.color = color;
+        }
+
+        @Override
+        public Insets getBorderInsets(Component component) {
+            return new Insets(2, 2, 2, 2);
+        }
+
+        @Override
+        public boolean isBorderOpaque() {
+            return false;
+        }
+
+        @Override
+        public void paintBorder(Component component, Graphics graphics, int x, int y, int width, int height) {
+            Graphics2D g2 = (Graphics2D) graphics.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(color);
+            g2.setStroke(new BasicStroke(1.2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+
+            int centerX = x + (width / 2);
+            int centerY = y + (height / 2);
+            int[] xPoints = {centerX, x + width - 2, centerX, x + 1};
+            int[] yPoints = {y + 1, centerY, y + height - 2, centerY};
+            g2.drawPolygon(xPoints, yPoints, 4);
+            g2.dispose();
+        }
     }
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
@@ -300,13 +462,17 @@ public class login extends javax.swing.JFrame {
             return;
         }
 
-        JOptionPane.showMessageDialog(this, "Login berhasil.");
+        new DashboardKasir(2L, username).setVisible(true);
+        dispose();
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void showPasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPasswordButtonActionPerformed
         passwordVisible = !passwordVisible;
         passwordField.setEchoChar(passwordVisible ? (char) 0 : '\u2022');
-        showPasswordButton.setText(passwordVisible ? "hide" : "show");
+        showPasswordButton.setIcon(new EyeIcon(passwordVisible));
+        showPasswordButton.setToolTipText(passwordVisible ? "Sembunyikan password" : "Tampilkan password");
+        showPasswordButton.getAccessibleContext().setAccessibleName(
+                passwordVisible ? "Sembunyikan password" : "Tampilkan password");
     }//GEN-LAST:event_showPasswordButtonActionPerformed
 
     /**
