@@ -7,6 +7,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -55,17 +56,17 @@ public class DashboardStockStaff extends JFrame {
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
 
-    private static final Color BACKGROUND = new Color(247, 244, 240);
+    private static final Color BACKGROUND = new Color(250, 246, 240);
     private static final Color CREAM = new Color(252, 248, 241);
-    private static final Color WHITE = Color.WHITE;
+    private static final Color WHITE = new Color(255, 253, 249);
     private static final Color BROWN = new Color(91, 48, 29);
     private static final Color BROWN_DARK = new Color(58, 28, 19);
     private static final Color BROWN_MID = new Color(126, 78, 46);
     private static final Color BROWN_LIGHT = new Color(164, 104, 67);
-    private static final Color MUTED = new Color(112, 100, 92);
-    private static final Color SUCCESS = new Color(38, 145, 91);
-    private static final Color WARNING = new Color(224, 151, 43);
-    private static final Color DANGER = new Color(210, 68, 68);
+    private static final Color MUTED = new Color(119, 98, 84);
+    private static final Color SUCCESS = new Color(91, 130, 82);
+    private static final Color WARNING = new Color(197, 133, 55);
+    private static final Color DANGER = new Color(176, 73, 57);
 
     private final long stockStaffId;
     private final String stockStaffName;
@@ -522,8 +523,7 @@ public class DashboardStockStaff extends JFrame {
     }
 
     private JPanel createSidebar() {
-        JPanel sidebar = new JPanel();
-        sidebar.setBackground(BROWN);
+        JPanel sidebar = new GradientPanel(new Color(169, 108, 69), BROWN_DARK, 0);
         sidebar.setPreferredSize(new Dimension(245, 720));
         sidebar.setBorder(BorderFactory.createEmptyBorder(26, 18, 24, 18));
         sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
@@ -570,10 +570,13 @@ public class DashboardStockStaff extends JFrame {
         button.setPreferredSize(new Dimension(209, 50));
         button.setHorizontalAlignment(SwingConstants.LEFT);
         button.setBorder(BorderFactory.createEmptyBorder(0, 18, 0, 18));
-        button.setBackground(selected ? BROWN_LIGHT : BROWN_MID);
-        button.setForeground(WHITE);
+        button.setBackground(selected ? BROWN_LIGHT : CREAM);
+        button.setForeground(selected ? WHITE : BROWN_DARK);
         button.setFont(new Font("Segoe UI", Font.BOLD, 14));
         button.setFocusPainted(false);
+        button.setOpaque(true);
+        button.setContentAreaFilled(true);
+        button.setBorderPainted(false);
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         return button;
     }
@@ -648,19 +651,21 @@ public class DashboardStockStaff extends JFrame {
     }
 
     private JPanel createHeader() {
-        JPanel header = new JPanel(new BorderLayout());
-        header.setOpaque(false);
+        JPanel header = new GradientPanel(BROWN_LIGHT, BROWN_DARK, 10);
+        header.setLayout(new BorderLayout());
+        header.setBorder(BorderFactory.createEmptyBorder(22, 22, 22, 22));
+        header.setPreferredSize(new Dimension(0, 145));
         JPanel titles = new JPanel();
         titles.setOpaque(false);
         titles.setLayout(new BoxLayout(titles, BoxLayout.Y_AXIS));
         JLabel eyebrow = new JLabel("STOCK STAFF OPERASIONAL");
-        eyebrow.setForeground(BROWN_LIGHT);
+        eyebrow.setForeground(new Color(255, 232, 209));
         eyebrow.setFont(new Font("Segoe UI", Font.BOLD, 12));
         JLabel title = new JLabel("Dashboard Stock Staff");
-        title.setForeground(BROWN_DARK);
-        title.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        title.setForeground(WHITE);
+        title.setFont(new Font("Segoe UI", Font.BOLD, 38));
         JLabel subtitle = new JLabel("Pantau persediaan produk dan kebutuhan restok.");
-        subtitle.setForeground(MUTED);
+        subtitle.setForeground(new Color(255, 235, 218));
         subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         titles.add(eyebrow);
         titles.add(Box.createVerticalStrut(3));
@@ -668,7 +673,7 @@ public class DashboardStockStaff extends JFrame {
         titles.add(Box.createVerticalStrut(4));
         titles.add(subtitle);
 
-        lastUpdatedLabel.setForeground(MUTED);
+        lastUpdatedLabel.setForeground(new Color(255, 235, 218));
         lastUpdatedLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         header.add(titles, BorderLayout.WEST);
         header.add(lastUpdatedLabel, BorderLayout.EAST);
@@ -680,21 +685,22 @@ public class DashboardStockStaff extends JFrame {
         cards.setOpaque(false);
         cards.add(statCard("Total Produk", totalProductsValue, BROWN_LIGHT));
         cards.add(statCard("Stok Menipis", lowStockValue, WARNING));
-        cards.add(statCard("Barang Masuk Hari Ini", incomingValue, SUCCESS));
+        cards.add(statCard("Barang Masuk Hari Ini", incomingValue, new Color(104, 132, 91)));
         cards.add(statCard("Stok Habis", outOfStockValue, DANGER));
         return cards;
     }
 
     private JPanel statCard(String title, JLabel value, Color accent) {
-        RoundedPanel card = new RoundedPanel(18, WHITE);
+        RoundedPanel card = new RoundedPanel(10, BROWN_DARK);
         card.setLayout(new BorderLayout());
         card.setBorder(BorderFactory.createEmptyBorder(16, 18, 16, 18));
         JLabel caption = new JLabel(title);
-        caption.setForeground(MUTED);
+        caption.setForeground(new Color(248, 224, 204));
         caption.setFont(new Font("Segoe UI", Font.BOLD, 13));
         JPanel marker = new JPanel();
         marker.setBackground(accent);
         marker.setPreferredSize(new Dimension(5, 1));
+        value.setForeground(WHITE);
         card.add(marker, BorderLayout.WEST);
         card.add(caption, BorderLayout.NORTH);
         card.add(value, BorderLayout.CENTER);
@@ -702,27 +708,42 @@ public class DashboardStockStaff extends JFrame {
     }
 
     private JPanel createRestockPanel() {
-        RoundedPanel panel = new RoundedPanel(18, WHITE);
+        JPanel panel = new GradientPanel(BROWN_LIGHT, BROWN_DARK, 10);
         panel.setLayout(new BorderLayout(0, 12));
         panel.setBorder(BorderFactory.createEmptyBorder(18, 20, 18, 20));
         panel.add(sectionHeader("Produk yang Perlu Direstok",
-                "Produk dengan stok 5 atau kurang"), BorderLayout.NORTH);
+                "Produk dengan stok 5 atau kurang", true), BorderLayout.NORTH);
 
         JTable table = new JTable(restockModel);
         table.setRowHeight(38);
         table.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        table.setForeground(BROWN_DARK);
-        table.setBackground(WHITE);
-        table.setSelectionBackground(new Color(244, 224, 208));
-        table.setSelectionForeground(BROWN_DARK);
+        table.setForeground(WHITE);
+        table.setBackground(new Color(111, 67, 44));
+        table.setFillsViewportHeight(true);
+        table.setSelectionBackground(new Color(151, 99, 70));
+        table.setSelectionForeground(WHITE);
         table.setShowVerticalLines(false);
-        table.setGridColor(new Color(235, 228, 223));
+        table.setGridColor(new Color(151, 99, 70));
         table.getTableHeader().setPreferredSize(new Dimension(0, 38));
-        table.getTableHeader().setBackground(BROWN_DARK);
+        table.getTableHeader().setBackground(new Color(150, 99, 70));
         table.getTableHeader().setForeground(WHITE);
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 11));
         table.getTableHeader().setReorderingAllowed(false);
-        DefaultTableCellRenderer padded = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer padded = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable renderedTable, Object value, boolean selected,
+                    boolean focused, int row, int column) {
+                Component component = super.getTableCellRendererComponent(
+                        renderedTable, value, selected, focused, row, column);
+                if (!selected) {
+                    component.setBackground(row % 2 == 0
+                            ? new Color(125, 75, 47) : new Color(111, 67, 44));
+                    component.setForeground(WHITE);
+                }
+                return component;
+            }
+        };
         padded.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         table.setDefaultRenderer(Object.class, padded);
         table.getColumnModel().getColumn(0).setPreferredWidth(140);
@@ -732,7 +753,8 @@ public class DashboardStockStaff extends JFrame {
         table.getColumnModel().getColumn(4).setPreferredWidth(90);
 
         JScrollPane tableScroll = new JScrollPane(table);
-        tableScroll.setBorder(BorderFactory.createLineBorder(new Color(230, 222, 216)));
+        tableScroll.setBorder(BorderFactory.createLineBorder(new Color(177, 126, 94)));
+        tableScroll.getViewport().setBackground(new Color(111, 67, 44));
         tableScroll.setPreferredSize(new Dimension(700, 190));
         panel.add(tableScroll, BorderLayout.CENTER);
         return panel;
@@ -750,7 +772,7 @@ public class DashboardStockStaff extends JFrame {
         JLabel title = new JLabel("Absensi");
         title.setForeground(WHITE);
         title.setFont(new Font("Segoe UI", Font.BOLD, 20));
-        attendanceDescription.setForeground(new Color(255, 234, 216));
+        attendanceDescription.setForeground(new Color(248, 229, 211));
         attendanceDescription.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         attendanceBadge.setOpaque(true);
         attendanceBadge.setForeground(WHITE);
@@ -795,13 +817,18 @@ public class DashboardStockStaff extends JFrame {
     }
 
     private JPanel sectionHeader(String title, String description) {
+        return sectionHeader(title, description, false);
+    }
+
+    private JPanel sectionHeader(String title, String description, boolean onDarkBackground) {
         JPanel header = new JPanel(new BorderLayout());
         header.setOpaque(false);
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setForeground(BROWN_DARK);
+        titleLabel.setForeground(onDarkBackground ? WHITE : BROWN_DARK);
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 17));
         JLabel descriptionLabel = new JLabel(description);
-        descriptionLabel.setForeground(MUTED);
+        descriptionLabel.setForeground(onDarkBackground
+                ? new Color(255, 235, 218) : MUTED);
         descriptionLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         header.add(titleLabel, BorderLayout.WEST);
         header.add(descriptionLabel, BorderLayout.EAST);
@@ -1047,6 +1074,33 @@ public class DashboardStockStaff extends JFrame {
             graphics2D.fillRoundRect(1, 3, getWidth() - 3, getHeight() - 4, radius, radius);
             graphics2D.setColor(fill);
             graphics2D.fillRoundRect(0, 0, getWidth() - 3, getHeight() - 4, radius, radius);
+            graphics2D.dispose();
+            super.paintComponent(graphics);
+        }
+    }
+
+    private static final class GradientPanel extends JPanel {
+
+        private final Color startColor;
+        private final Color endColor;
+        private final int radius;
+
+        GradientPanel(Color startColor, Color endColor, int radius) {
+            this.startColor = startColor;
+            this.endColor = endColor;
+            this.radius = radius;
+            setOpaque(false);
+        }
+
+        @Override
+        protected void paintComponent(Graphics graphics) {
+            Graphics2D graphics2D = (Graphics2D) graphics.create();
+            graphics2D.setRenderingHint(
+                    RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            graphics2D.setPaint(new GradientPaint(
+                    0, 0, startColor, getWidth(), getHeight(), endColor));
+            graphics2D.fillRoundRect(
+                    0, 0, getWidth(), getHeight(), radius, radius);
             graphics2D.dispose();
             super.paintComponent(graphics);
         }

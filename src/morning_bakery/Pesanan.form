@@ -98,9 +98,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="logoLabel" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
-                          <Component id="brandLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="logoLabel" alignment="2" min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="brandLabel" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       <Component id="ordersNavButton" min="-2" pref="52" max="-2" attributes="0"/>
