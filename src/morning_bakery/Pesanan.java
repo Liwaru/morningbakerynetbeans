@@ -68,6 +68,8 @@ public class Pesanan extends JFrame {
     private final DefaultTableModel cartModel = readOnlyModel(
             new String[]{"ID", "MENU", "QTY", "SUBTOTAL"});
     private final Map<Long, CartItem> cartItems = new LinkedHashMap<>();
+    private final Map<String, Long> placeholderIdsByBarcode = new LinkedHashMap<>();
+    private long nextPlaceholderId = -1L;
     private final Timer refreshTimer;
     private boolean barcodeMode;
     private int menuSearchSequence;
@@ -130,7 +132,6 @@ public class Pesanan extends JFrame {
         cartTable = new javax.swing.JTable();
         cashRadioButton = new javax.swing.JRadioButton();
         qrisRadioButton = new javax.swing.JRadioButton();
-        paymentButtonGroup = new javax.swing.ButtonGroup();
         totalCaptionLabel = new javax.swing.JLabel();
         totalValueLabel = new javax.swing.JLabel();
         addMenuButton = new javax.swing.JButton();
@@ -141,26 +142,37 @@ public class Pesanan extends JFrame {
 
         rootPanel.setBackground(new java.awt.Color(248, 248, 247));
         rootPanel.setPreferredSize(new java.awt.Dimension(1366, 720));
+
         sidebarPanel.setBackground(new java.awt.Color(91, 48, 29));
         sidebarPanel.setPreferredSize(new java.awt.Dimension(250, 720));
 
         logoLabel.setBackground(new java.awt.Color(255, 255, 255));
-        logoLabel.setFont(new java.awt.Font("Segoe UI", 1, 24));
-        logoLabel.setForeground(new java.awt.Color(91, 48, 29));
+        logoLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         logoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logoLabel.setText("S");
         logoLabel.setOpaque(true);
 
-        brandLabel.setFont(new java.awt.Font("Segoe UI", 1, 23));
+        brandLabel.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
         brandLabel.setForeground(new java.awt.Color(255, 255, 255));
+        brandLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         brandLabel.setText("SwiftBite");
 
         ordersNavButton.setText("Pesanan");
+
         historyNavButton.setText("Riwayat Transaksi");
 
         accountPanel.setBackground(new java.awt.Color(74, 43, 32));
+
+        accountInitialLabel.setForeground(new java.awt.Color(255, 255, 255));
+        accountInitialLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         accountInitialLabel.setText("C");
+
+        accountNameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        accountNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         accountNameLabel.setText("cashier");
+
+        accountRoleLabel.setForeground(new java.awt.Color(242, 218, 197));
+        accountRoleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         accountRoleLabel.setText("Kasir");
 
         javax.swing.GroupLayout accountPanelLayout = new javax.swing.GroupLayout(accountPanel);
@@ -174,7 +186,7 @@ public class Pesanan extends JFrame {
                 .addGroup(accountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(accountNameLabel)
                     .addComponent(accountRoleLabel))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         accountPanelLayout.setVerticalGroup(
             accountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,8 +196,9 @@ public class Pesanan extends JFrame {
                     .addComponent(accountInitialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(accountPanelLayout.createSequentialGroup()
                         .addComponent(accountNameLabel)
+                        .addGap(0, 0, 0)
                         .addComponent(accountRoleLabel)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(12, 12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
@@ -197,18 +210,18 @@ public class Pesanan extends JFrame {
                 .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ordersNavButton, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(historyNavButton, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(accountPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(accountPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(sidebarPanelLayout.createSequentialGroup()
                         .addComponent(logoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(brandLabel)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
         sidebarPanelLayout.setVerticalGroup(
             sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebarPanelLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(brandLabel))
                 .addGap(42, 42, 42)
@@ -221,44 +234,50 @@ public class Pesanan extends JFrame {
         );
 
         contentPanel.setBackground(new java.awt.Color(248, 248, 247));
+
         ordersPanel.setBackground(new java.awt.Color(126, 78, 46));
-        walkInPanel.setBackground(new java.awt.Color(126, 78, 46));
 
+        ordersTitleLabel.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        ordersTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
         ordersTitleLabel.setText("Pesanan QR Masuk");
-        updateLabel.setText("Update --:--:--");
-        scanField.setToolTipText("Masukkan kode pesanan");
-        scanButton.setText("Scan");
-        detailTitleLabel.setText("Detail Pesanan");
-        processButton.setText("Terima Pesanan & Kirim ke Baker");
-        walkInTitleLabel.setText("Pesanan Walk-In");
-        manualModeButton.setText("Manual");
-        barcodeModeButton.setText("Scan Barcode");
-        searchMenuField.setToolTipText("Cari menu bakery");
-        selectedOrderLabel.setText("Pesanan Dipilih");
-        cartTable.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{},
-            new String[]{"MENU", "QTY", "SUBTOTAL"}));
-        cartScrollPane.setViewportView(cartTable);
-        paymentButtonGroup.add(cashRadioButton);
-        cashRadioButton.setText("[x]  Tunai");
-        cashRadioButton.setSelected(true);
-        paymentButtonGroup.add(qrisRadioButton);
-        qrisRadioButton.setText("[ ]  QRIS");
-        totalCaptionLabel.setText("Total");
-        totalValueLabel.setText("Rp0");
-        addMenuButton.setText("Buat Pesanan");
 
-        ordersTable.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{},
-            new String[]{"KODE PESANAN", "MEJA", "STATUS", "PEMBAYARAN", "TOTAL", "WAKTU"}));
+        updateLabel.setForeground(new java.awt.Color(225, 245, 216));
+        updateLabel.setText("Update --:--:--");
+
+        scanField.setToolTipText("Masukkan kode pesanan");
+
+        scanButton.setText("Scan");
+
+        ordersTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "KODE PESANAN", "MEJA", "STATUS", "PEMBAYARAN", "TOTAL", "WAKTU"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         ordersScrollPane.setViewportView(ordersTable);
+
+        detailTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
+        detailTitleLabel.setText("Detail Pesanan");
 
         detailTextArea.setColumns(20);
         detailTextArea.setRows(5);
         detailTextArea.setEditable(false);
         detailScrollPane.setViewportView(detailTextArea);
 
-        menusTable.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{},
-            new String[]{"MENU", "KATEGORI", "STOK", "HARGA"}));
-        menusScrollPane.setViewportView(menusTable);
+        processButton.setText("Terima Pesanan & Kirim ke Baker");
 
         javax.swing.GroupLayout ordersPanelLayout = new javax.swing.GroupLayout(ordersPanel);
         ordersPanel.setLayout(ordersPanelLayout);
@@ -267,7 +286,7 @@ public class Pesanan extends JFrame {
             .addGroup(ordersPanelLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ordersScrollPane)
+                    .addComponent(ordersScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
                     .addComponent(detailScrollPane)
                     .addComponent(processButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(ordersPanelLayout.createSequentialGroup()
@@ -291,9 +310,9 @@ public class Pesanan extends JFrame {
                     .addComponent(ordersTitleLabel)
                     .addComponent(updateLabel))
                 .addGap(14, 14, 14)
-                .addGroup(ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(scanField, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                    .addComponent(scanButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scanField, javax.swing.GroupLayout.DEFAULT_SIZE, 42, 42)
+                    .addComponent(scanButton, javax.swing.GroupLayout.DEFAULT_SIZE, 42, 42))
                 .addGap(14, 14, 14)
                 .addComponent(ordersScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                 .addGap(14, 14, 14)
@@ -305,12 +324,98 @@ public class Pesanan extends JFrame {
                 .addGap(18, 18, 18))
         );
 
+        walkInPanel.setBackground(new java.awt.Color(126, 78, 46));
+
+        walkInTitleLabel.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        walkInTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
+        walkInTitleLabel.setText("Pesanan Walk-In");
+
+        manualModeButton.setText("Manual");
+
+        barcodeModeButton.setText("Scan Barcode");
+
+        searchMenuField.setToolTipText("Cari menu bakery");
+
+        menusTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "MENU", "KATEGORI", "STOK", "HARGA", "PILIH"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        menusScrollPane.setViewportView(menusTable);
+
+        selectedOrderLabel.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        selectedOrderLabel.setForeground(new java.awt.Color(255, 255, 255));
+        selectedOrderLabel.setText("Pesanan Dipilih");
+
+        cartTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "MENU", "QTY", "SUBTOTAL"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        cartScrollPane.setViewportView(cartTable);
+
+        cashRadioButton.setBackground(new java.awt.Color(252, 248, 241));
+        cashRadioButton.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        cashRadioButton.setForeground(new java.awt.Color(58, 28, 19));
+        cashRadioButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cashRadioButton.setText("[x]  Tunai");
+        cashRadioButton.setSelected(true);
+        cashRadioButton.setOpaque(true);
+
+        qrisRadioButton.setBackground(new java.awt.Color(110, 65, 42));
+        qrisRadioButton.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        qrisRadioButton.setForeground(new java.awt.Color(255, 255, 255));
+        qrisRadioButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        qrisRadioButton.setText("[ ]  QRIS");
+        qrisRadioButton.setOpaque(true);
+
+        totalCaptionLabel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        totalCaptionLabel.setForeground(new java.awt.Color(255, 255, 255));
+        totalCaptionLabel.setText("Total");
+
+        totalValueLabel.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        totalValueLabel.setForeground(new java.awt.Color(255, 255, 255));
+        totalValueLabel.setText("Rp0");
+
+        addMenuButton.setText("Buat Pesanan");
+
         javax.swing.GroupLayout walkInPanelLayout = new javax.swing.GroupLayout(walkInPanel);
         walkInPanel.setLayout(walkInPanelLayout);
         walkInPanelLayout.setHorizontalGroup(
             walkInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(walkInPanelLayout.createSequentialGroup()
-                    .addGap(18, 18, 18)
+            .addGroup(walkInPanelLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(walkInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(searchMenuField)
                     .addComponent(menusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
@@ -329,10 +434,9 @@ public class Pesanan extends JFrame {
                         .addGap(8, 8, 8)
                         .addComponent(barcodeModeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
                     .addGroup(walkInPanelLayout.createSequentialGroup()
-                        .addComponent(walkInTitleLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(walkInPanelLayout.createSequentialGroup()
-                        .addComponent(selectedOrderLabel)
+                        .addGroup(walkInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(walkInTitleLabel)
+                            .addComponent(selectedOrderLabel))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18))
         );
@@ -392,7 +496,8 @@ public class Pesanan extends JFrame {
         rootPanelLayout.setHorizontalGroup(
             rootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rootPanelLayout.createSequentialGroup()
-                .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         rootPanelLayout.setVerticalGroup(
@@ -403,10 +508,14 @@ public class Pesanan extends JFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(rootPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1366, Short.MAX_VALUE));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(rootPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE));
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(rootPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(rootPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -432,7 +541,14 @@ public class Pesanan extends JFrame {
                 loadMenus(searchMenuField.getText().trim());
             }
         });
-        searchMenuField.addActionListener(event -> loadMenus(searchMenuField.getText().trim()));
+        searchMenuField.addActionListener(event -> {
+            String keyword = searchMenuField.getText().trim();
+            if (barcodeMode) {
+                processBarcode(keyword);
+            } else {
+                loadMenus(keyword);
+            }
+        });
         manualModeButton.addActionListener(event -> setOrderInputMode(false));
         barcodeModeButton.addActionListener(event -> setOrderInputMode(true));
         ordersTable.getSelectionModel().addListSelectionListener(event -> {
@@ -609,10 +725,15 @@ public class Pesanan extends JFrame {
         cartTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
-                if (event.getClickCount() == 2) {
-                    int viewRow = cartTable.rowAtPoint(event.getPoint());
-                    if (viewRow >= 0) {
+                int viewRow = cartTable.rowAtPoint(event.getPoint());
+                int viewColumn = cartTable.columnAtPoint(event.getPoint());
+                if (viewRow >= 0 && viewColumn == 1) {
+                    java.awt.Rectangle cell = cartTable.getCellRect(viewRow, viewColumn, true);
+                    int modelRow = cartTable.convertRowIndexToModel(viewRow);
+                    if (event.getX() - cell.x < cell.width / 2) {
                         decrementCartItem(cartTable.convertRowIndexToModel(viewRow));
+                    } else {
+                        incrementCartItem(modelRow);
                     }
                 }
             }
@@ -663,7 +784,7 @@ public class Pesanan extends JFrame {
                     setOrderInputMode(true);
                 }
                 setBarcodeFieldValue(barcode);
-                loadMenus(barcode);
+                processBarcode(barcode);
                 return true;
             }
             return false;
@@ -764,6 +885,17 @@ public class Pesanan extends JFrame {
     }
 
     private void loadMenus(String keyword) {
+        loadMenus(keyword, false);
+    }
+
+    private void processBarcode(String barcode) {
+        if (barcode == null || barcode.isBlank()) {
+            return;
+        }
+        loadMenus(barcode.trim(), true);
+    }
+
+    private void loadMenus(String keyword, boolean addScannedItem) {
         boolean searchByBarcode = barcodeMode;
         int requestSequence = ++menuSearchSequence;
         new SwingWorker<java.util.List<Object[]>, Void>() {
@@ -804,6 +936,11 @@ public class Pesanan extends JFrame {
                     replaceRows(menusModel, rows);
                     if (searchByBarcode && menusModel.getRowCount() == 1) {
                         menusTable.setRowSelectionInterval(0, 0);
+                        if (addScannedItem) {
+                            addMenuToCart(0);
+                        }
+                    } else if (searchByBarcode && addScannedItem && menusModel.getRowCount() == 0) {
+                        addPlaceholderBarcodeToCart(keyword);
                     }
                 } catch (Exception ignored) {
                 }
@@ -908,12 +1045,38 @@ public class Pesanan extends JFrame {
         refreshCartDisplay();
     }
 
+    private void incrementCartItem(int modelRow) {
+        long menuId = ((Number) cartModel.getValueAt(modelRow, 0)).longValue();
+        CartItem current = cartItems.get(menuId);
+        if (current == null) {
+            return;
+        }
+        if (current.quantity() >= current.stock()) {
+            JOptionPane.showMessageDialog(this, "Jumlah melebihi stok " + current.name() + ".");
+            return;
+        }
+        cartItems.put(menuId, new CartItem(menuId, current.name(), current.price(),
+                current.quantity() + 1, current.stock()));
+        refreshCartDisplay();
+    }
+
+    private void addPlaceholderBarcodeToCart(String barcode) {
+        long placeholderId = placeholderIdsByBarcode.computeIfAbsent(
+                barcode, ignored -> nextPlaceholderId--);
+        CartItem current = cartItems.get(placeholderId);
+        int quantity = current == null ? 1 : current.quantity() + 1;
+        cartItems.put(placeholderId, new CartItem(
+                placeholderId, "***", BigDecimal.ZERO, quantity, Integer.MAX_VALUE));
+        refreshCartDisplay();
+    }
+
     private void refreshCartDisplay() {
         cartModel.setRowCount(0);
         BigDecimal total = BigDecimal.ZERO;
         for (CartItem item : cartItems.values()) {
             BigDecimal subtotal = item.price().multiply(BigDecimal.valueOf(item.quantity()));
-            cartModel.addRow(new Object[]{item.menuId(), item.name(), item.quantity(), formatRupiah(subtotal)});
+            cartModel.addRow(new Object[]{item.menuId(), item.name(),
+                quantityControlText(item.quantity()), formatRupiah(subtotal)});
             total = total.add(subtotal);
         }
         totalValueLabel.setText(formatRupiah(total));
@@ -931,6 +1094,11 @@ public class Pesanan extends JFrame {
     private void createManualOrder() {
         if (cartItems.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Pilih minimal satu menu dengan tombol +.");
+            return;
+        }
+        if (cartItems.keySet().stream().anyMatch(menuId -> menuId < 0)) {
+            JOptionPane.showMessageDialog(this,
+                    "Barcode bertanda *** belum terdaftar sebagai menu di stok.");
             return;
         }
 
@@ -1114,16 +1282,16 @@ public class Pesanan extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel accountPanel;
     private javax.swing.JLabel accountInitialLabel;
     private javax.swing.JLabel accountNameLabel;
+    private javax.swing.JPanel accountPanel;
     private javax.swing.JLabel accountRoleLabel;
     private javax.swing.JButton addMenuButton;
-    private javax.swing.JLabel brandLabel;
     private javax.swing.JButton barcodeModeButton;
-    private javax.swing.JRadioButton cashRadioButton;
+    private javax.swing.JLabel brandLabel;
     private javax.swing.JScrollPane cartScrollPane;
     private javax.swing.JTable cartTable;
+    private javax.swing.JRadioButton cashRadioButton;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JScrollPane detailScrollPane;
     private javax.swing.JTextArea detailTextArea;
@@ -1146,10 +1314,9 @@ public class Pesanan extends JFrame {
     private javax.swing.JTextField searchMenuField;
     private javax.swing.JLabel selectedOrderLabel;
     private javax.swing.JPanel sidebarPanel;
-    private javax.swing.JLabel updateLabel;
-    private javax.swing.ButtonGroup paymentButtonGroup;
     private javax.swing.JLabel totalCaptionLabel;
     private javax.swing.JLabel totalValueLabel;
+    private javax.swing.JLabel updateLabel;
     private javax.swing.JPanel walkInPanel;
     private javax.swing.JLabel walkInTitleLabel;
     // End of variables declaration//GEN-END:variables

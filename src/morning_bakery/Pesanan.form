@@ -4,9 +4,14 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="SwiftBite - Pesanan Kasir"/>
-    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor"><Dimension value="[1100, 680]"/></Property>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1100, 680]"/>
+    </Property>
   </Properties>
-  <SyntheticProperties><SyntheticProperty name="formSizePolicy" type="int" value="1"/><SyntheticProperty name="generateCenter" type="boolean" value="false"/></SyntheticProperties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -18,281 +23,600 @@
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
   </AuxValues>
-  <Layout><DimensionLayout dim="0"><Group type="103" groupAlignment="0" attributes="0"><Component id="rootPanel" max="32767" attributes="0"/></Group></DimensionLayout><DimensionLayout dim="1"><Group type="103" groupAlignment="0" attributes="0"><Component id="rootPanel" max="32767" attributes="0"/></Group></DimensionLayout></Layout>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="rootPanel" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="rootPanel" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="rootPanel">
-      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="f7" green="f8" red="f8" type="rgb"/></Property><Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor"><Dimension value="[1366, 720]"/></Property></Properties>
-      <Layout><DimensionLayout dim="0"><Group type="103" groupAlignment="0" attributes="0"><Group type="102" attributes="0"><Component id="sidebarPanel" min="-2" pref="250" max="-2" attributes="0"/><Component id="contentPanel" max="32767" attributes="0"/></Group></Group></DimensionLayout><DimensionLayout dim="1"><Group type="103" groupAlignment="0" attributes="0"><Component id="sidebarPanel" max="32767" attributes="0"/><Component id="contentPanel" max="32767" attributes="0"/></Group></DimensionLayout></Layout>
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f7" green="f8" red="f8" type="rgb"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[1366, 720]"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <Component id="sidebarPanel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <Component id="contentPanel" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="sidebarPanel" max="32767" attributes="0"/>
+              <Component id="contentPanel" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="sidebarPanel">
-          <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="1d" green="30" red="5b" type="rgb"/></Property><Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor"><Dimension value="[250, 720]"/></Property></Properties>
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="1d" green="30" red="5b" type="rgb"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[250, 720]"/>
+            </Property>
+          </Properties>
+
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                    <Component id="ordersNavButton" min="-2" pref="214" max="-2" attributes="0"/>
-                    <Component id="historyNavButton" min="-2" pref="214" max="-2" attributes="0"/>
-                    <Component id="accountPanel" min="-2" pref="214" max="-2" attributes="0"/>
-                    <Group type="102" attributes="0">
-                      <Component id="logoLabel" min="-2" pref="48" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="brandLabel" min="-2" max="-2" attributes="0"/>
-                    </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="ordersNavButton" min="-2" pref="214" max="-2" attributes="0"/>
+                          <Component id="historyNavButton" min="-2" pref="214" max="-2" attributes="0"/>
+                          <Component id="accountPanel" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="logoLabel" min="-2" pref="48" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Component id="brandLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                    <Component id="logoLabel" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
-                    <Component id="brandLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="logoLabel" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="brandLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <Component id="ordersNavButton" min="-2" pref="52" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="historyNavButton" min="-2" pref="52" max="-2" attributes="0"/>
+                      <EmptySpace pref="370" max="32767" attributes="0"/>
+                      <Component id="accountPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                  <Component id="ordersNavButton" min="-2" pref="52" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Component id="historyNavButton" min="-2" pref="52" max="-2" attributes="0"/>
-                  <EmptySpace pref="370" max="32767" attributes="0"/>
-                  <Component id="accountPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="logoLabel"><Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="24" style="1"/></Property><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="S"/><Property name="opaque" type="boolean" value="true"/></Properties></Component>
-            <Component class="javax.swing.JLabel" name="brandLabel"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="23" style="1"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="SwiftBite"/></Properties></Component>
-            <Component class="javax.swing.JButton" name="ordersNavButton"><Properties><Property name="text" type="java.lang.String" value="Pesanan"/></Properties></Component>
-            <Component class="javax.swing.JButton" name="historyNavButton"><Properties><Property name="text" type="java.lang.String" value="Riwayat Transaksi"/></Properties></Component>
+            <Component class="javax.swing.JLabel" name="logoLabel">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="24" style="1"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="S"/>
+                <Property name="opaque" type="boolean" value="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="brandLabel">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="23" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="SwiftBite"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="ordersNavButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Pesanan"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="historyNavButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Riwayat Transaksi"/>
+              </Properties>
+            </Component>
             <Container class="javax.swing.JPanel" name="accountPanel">
-              <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="20" green="2b" red="4a" type="rgb"/></Property></Properties>
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="20" green="2b" red="4a" type="rgb"/>
+                </Property>
+              </Properties>
+
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                    <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="accountInitialLabel" min="-2" pref="38" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                        <Component id="accountNameLabel" min="-2" max="-2" attributes="0"/>
-                        <Component id="accountRoleLabel" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="accountInitialLabel" min="-2" pref="38" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="accountNameLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="accountRoleLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="117" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="70" max="32767" attributes="0"/>
-                    </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                    <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="2" attributes="0">
-                        <Component id="accountInitialLabel" alignment="2" min="-2" pref="38" max="-2" attributes="0"/>
-                        <Group type="102" alignment="2" attributes="0">
-                          <Component id="accountNameLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="accountRoleLabel" min="-2" max="-2" attributes="0"/>
-                        </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="accountInitialLabel" alignment="2" min="-2" pref="38" max="-2" attributes="0"/>
+                              <Group type="102" alignment="2" attributes="0">
+                                  <Component id="accountNameLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                  <Component id="accountRoleLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="12" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="12" max="32767" attributes="0"/>
-                    </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="accountInitialLabel"><Properties><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="C"/></Properties></Component>
-                <Component class="javax.swing.JLabel" name="accountNameLabel"><Properties><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="cashier"/></Properties></Component>
-                <Component class="javax.swing.JLabel" name="accountRoleLabel"><Properties><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="c5" green="da" red="f2" type="rgb"/></Property><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="Kasir"/></Properties></Component>
+                <Component class="javax.swing.JLabel" name="accountInitialLabel">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="C"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="accountNameLabel">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="cashier"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="accountRoleLabel">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="c5" green="da" red="f2" type="rgb"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Kasir"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="contentPanel">
-          <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="f7" green="f8" red="f8" type="rgb"/></Property></Properties>
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f7" green="f8" red="f8" type="rgb"/>
+            </Property>
+          </Properties>
+
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="ordersPanel" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                  <Component id="walkInPanel" min="-2" pref="386" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="ordersPanel" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="walkInPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                    <Component id="ordersPanel" max="32767" attributes="0"/>
-                    <Component id="walkInPanel" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="ordersPanel" max="32767" attributes="0"/>
+                          <Component id="walkInPanel" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="ordersPanel">
-              <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="2e" green="4e" red="7e" type="rgb"/></Property></Properties>
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="2e" green="4e" red="7e" type="rgb"/>
+                </Property>
+              </Properties>
+
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                    <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                        <Component id="ordersScrollPane" max="32767" attributes="0"/>
-                        <Component id="detailScrollPane" max="32767" attributes="0"/>
-                        <Component id="processButton" max="32767" attributes="0"/>
-                        <Group type="102" attributes="0">
-                          <Component id="ordersTitleLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="updateLabel" min="-2" max="-2" attributes="0"/>
-                        </Group>
-                        <Group type="102" attributes="0">
-                          <Component id="scanField" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                          <Component id="scanButton" min="-2" pref="70" max="-2" attributes="0"/>
-                        </Group>
-                        <Group type="102" attributes="0">
-                          <Component id="detailTitleLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                        </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="ordersScrollPane" pref="622" max="32767" attributes="0"/>
+                              <Component id="detailScrollPane" max="32767" attributes="0"/>
+                              <Component id="processButton" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="ordersTitleLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="updateLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="scanField" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                  <Component id="scanButton" min="-2" pref="70" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="detailTitleLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                    </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                    <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                        <Component id="ordersTitleLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                        <Component id="updateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="ordersTitleLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="updateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="scanField" pref="42" max="42" attributes="0"/>
+                              <Component id="scanButton" pref="42" max="42" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="ordersScrollPane" pref="245" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="detailTitleLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Component id="detailScrollPane" min="-2" pref="120" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="processButton" min="-2" pref="42" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                        <Component id="scanField" pref="42" max="42" attributes="0"/>
-                        <Component id="scanButton" pref="42" max="42" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="ordersScrollPane" pref="245" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="detailTitleLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="detailScrollPane" min="-2" pref="120" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="processButton" min="-2" pref="42" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                    </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="ordersTitleLabel"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="22" style="1"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="text" type="java.lang.String" value="Pesanan QR Masuk"/></Properties></Component>
-                <Component class="javax.swing.JLabel" name="updateLabel"><Properties><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="d8" green="f5" red="e1" type="rgb"/></Property><Property name="text" type="java.lang.String" value="Update --:--:--"/></Properties></Component>
-                <Component class="javax.swing.JTextField" name="scanField"><Properties><Property name="toolTipText" type="java.lang.String" value="Masukkan kode pesanan"/></Properties></Component>
-                <Component class="javax.swing.JButton" name="scanButton"><Properties><Property name="text" type="java.lang.String" value="Scan"/></Properties></Component>
-                <Container class="javax.swing.JScrollPane" name="ordersScrollPane"><AuxValues><AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/></AuxValues><Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/><SubComponents><Component class="javax.swing.JTable" name="ordersTable"><Properties><Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor"><Table columnCount="6" rowCount="4"><Column editable="false" title="KODE PESANAN" type="java.lang.Object"/><Column editable="false" title="MEJA" type="java.lang.Object"/><Column editable="false" title="STATUS" type="java.lang.Object"/><Column editable="false" title="PEMBAYARAN" type="java.lang.Object"/><Column editable="false" title="TOTAL" type="java.lang.Object"/><Column editable="false" title="WAKTU" type="java.lang.Object"/></Table></Property></Properties></Component></SubComponents></Container>
-                <Component class="javax.swing.JLabel" name="detailTitleLabel"><Properties><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="text" type="java.lang.String" value="Detail Pesanan"/></Properties></Component>
-                <Container class="javax.swing.JScrollPane" name="detailScrollPane"><AuxValues><AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/></AuxValues><Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/><SubComponents><Component class="javax.swing.JTextArea" name="detailTextArea"><Properties><Property name="columns" type="int" value="20"/><Property name="rows" type="int" value="5"/><Property name="editable" type="boolean" value="false"/></Properties></Component></SubComponents></Container>
-                <Component class="javax.swing.JButton" name="processButton"><Properties><Property name="text" type="java.lang.String" value="Terima Pesanan &amp; Kirim ke Baker"/></Properties></Component>
+                <Component class="javax.swing.JLabel" name="ordersTitleLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="22" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Pesanan QR Masuk"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="updateLabel">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="d8" green="f5" red="e1" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Update --:--:--"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="scanField">
+                  <Properties>
+                    <Property name="toolTipText" type="java.lang.String" value="Masukkan kode pesanan"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="scanButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Scan"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="ordersScrollPane">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="ordersTable">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="6" rowCount="4">
+                            <Column editable="false" title="KODE PESANAN" type="java.lang.Object"/>
+                            <Column editable="false" title="MEJA" type="java.lang.Object"/>
+                            <Column editable="false" title="STATUS" type="java.lang.Object"/>
+                            <Column editable="false" title="PEMBAYARAN" type="java.lang.Object"/>
+                            <Column editable="false" title="TOTAL" type="java.lang.Object"/>
+                            <Column editable="false" title="WAKTU" type="java.lang.Object"/>
+                          </Table>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JLabel" name="detailTitleLabel">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Detail Pesanan"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="detailScrollPane">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextArea" name="detailTextArea">
+                      <Properties>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="5"/>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JButton" name="processButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Terima Pesanan &amp; Kirim ke Baker"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="walkInPanel">
-              <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="2e" green="4e" red="7e" type="rgb"/></Property></Properties>
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="2e" green="4e" red="7e" type="rgb"/>
+                </Property>
+              </Properties>
+
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                    <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                        <Component id="searchMenuField" max="32767" attributes="0"/>
-                        <Component id="menusScrollPane" pref="350" max="32767" attributes="0"/>
-                        <Component id="cartScrollPane" max="32767" attributes="0"/>
-                        <Component id="addMenuButton" max="32767" attributes="0"/>
-                        <Group type="102" attributes="0">
-                          <Component id="cashRadioButton" pref="170" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                          <Component id="qrisRadioButton" pref="172" max="32767" attributes="0"/>
-                        </Group>
-                        <Group type="102" attributes="0">
-                          <Component id="totalCaptionLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="totalValueLabel" min="-2" max="-2" attributes="0"/>
-                        </Group>
-                        <Group type="102" attributes="0">
-                          <Component id="manualModeButton" pref="170" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                          <Component id="barcodeModeButton" pref="172" max="32767" attributes="0"/>
-                        </Group>
-                        <Group type="102" attributes="0">
-                          <Component id="walkInTitleLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                        </Group>
-                        <Group type="102" attributes="0">
-                          <Component id="selectedOrderLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                        </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="searchMenuField" max="32767" attributes="0"/>
+                              <Component id="menusScrollPane" pref="350" max="32767" attributes="0"/>
+                              <Component id="cartScrollPane" max="32767" attributes="0"/>
+                              <Component id="addMenuButton" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="cashRadioButton" pref="170" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                  <Component id="qrisRadioButton" pref="172" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="totalCaptionLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="totalValueLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="manualModeButton" pref="170" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                  <Component id="barcodeModeButton" pref="172" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="walkInTitleLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="selectedOrderLabel" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                    </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                    <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="walkInTitleLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                        <Component id="manualModeButton" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                        <Component id="barcodeModeButton" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Component id="walkInTitleLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="manualModeButton" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="barcodeModeButton" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Component id="searchMenuField" min="-2" pref="42" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="menusScrollPane" pref="225" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Component id="selectedOrderLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Component id="cartScrollPane" min="-2" pref="105" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cashRadioButton" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                              <Component id="qrisRadioButton" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="totalCaptionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="totalValueLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Component id="addMenuButton" min="-2" pref="42" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="searchMenuField" min="-2" pref="42" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="menusScrollPane" pref="225" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Component id="selectedOrderLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Component id="cartScrollPane" min="-2" pref="105" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                        <Component id="cashRadioButton" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                        <Component id="qrisRadioButton" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                        <Component id="totalCaptionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                        <Component id="totalValueLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="addMenuButton" min="-2" pref="42" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                    </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="walkInTitleLabel"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="22" style="1"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="text" type="java.lang.String" value="Pesanan Walk-In"/></Properties></Component>
-                <Component class="javax.swing.JButton" name="manualModeButton"><Properties><Property name="text" type="java.lang.String" value="Manual"/></Properties></Component>
-                <Component class="javax.swing.JButton" name="barcodeModeButton"><Properties><Property name="text" type="java.lang.String" value="Scan Barcode"/></Properties></Component>
-                <Component class="javax.swing.JTextField" name="searchMenuField"><Properties><Property name="toolTipText" type="java.lang.String" value="Cari menu bakery"/></Properties></Component>
-                <Container class="javax.swing.JScrollPane" name="menusScrollPane"><AuxValues><AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/></AuxValues><Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/><SubComponents><Component class="javax.swing.JTable" name="menusTable"><Properties><Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor"><Table columnCount="5" rowCount="8"><Column editable="false" title="MENU" type="java.lang.Object"/><Column editable="false" title="KATEGORI" type="java.lang.Object"/><Column editable="false" title="STOK" type="java.lang.Object"/><Column editable="false" title="HARGA" type="java.lang.Object"/><Column editable="false" title="PILIH" type="java.lang.Object"/></Table></Property></Properties></Component></SubComponents></Container>
-                <Component class="javax.swing.JLabel" name="selectedOrderLabel"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="16" style="1"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="text" type="java.lang.String" value="Pesanan Dipilih"/></Properties></Component>
-                <Container class="javax.swing.JScrollPane" name="cartScrollPane"><AuxValues><AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/></AuxValues><Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/><SubComponents><Component class="javax.swing.JTable" name="cartTable"><Properties><Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor"><Table columnCount="3" rowCount="3"><Column editable="false" title="MENU" type="java.lang.Object"/><Column editable="false" title="QTY" type="java.lang.Object"/><Column editable="false" title="SUBTOTAL" type="java.lang.Object"/></Table></Property></Properties></Component></SubComponents></Container>
-                <Component class="javax.swing.JRadioButton" name="cashRadioButton"><Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="f1" green="f8" red="fc" type="rgb"/></Property><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="13" style="1"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="13" green="1c" red="3a" type="rgb"/></Property><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="[x]  Tunai"/><Property name="selected" type="boolean" value="true"/><Property name="opaque" type="boolean" value="true"/></Properties></Component>
-                <Component class="javax.swing.JRadioButton" name="qrisRadioButton"><Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="2a" green="41" red="6e" type="rgb"/></Property><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="13" style="1"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="[ ]  QRIS"/><Property name="opaque" type="boolean" value="true"/></Properties></Component>
-                <Component class="javax.swing.JLabel" name="totalCaptionLabel"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="15" style="1"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="text" type="java.lang.String" value="Total"/></Properties></Component>
-                <Component class="javax.swing.JLabel" name="totalValueLabel"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="16" style="1"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="text" type="java.lang.String" value="Rp0"/></Properties></Component>
-                <Component class="javax.swing.JButton" name="addMenuButton"><Properties><Property name="text" type="java.lang.String" value="Buat Pesanan"/></Properties></Component>
+                <Component class="javax.swing.JLabel" name="walkInTitleLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="22" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Pesanan Walk-In"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="manualModeButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Manual"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="barcodeModeButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Scan Barcode"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="searchMenuField">
+                  <Properties>
+                    <Property name="toolTipText" type="java.lang.String" value="Cari menu bakery"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="menusScrollPane">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="menusTable">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="5" rowCount="8">
+                            <Column editable="false" title="MENU" type="java.lang.Object"/>
+                            <Column editable="false" title="KATEGORI" type="java.lang.Object"/>
+                            <Column editable="false" title="STOK" type="java.lang.Object"/>
+                            <Column editable="false" title="HARGA" type="java.lang.Object"/>
+                            <Column editable="false" title="PILIH" type="java.lang.Object"/>
+                          </Table>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JLabel" name="selectedOrderLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="16" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Pesanan Dipilih"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="cartScrollPane">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="cartTable">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="3" rowCount="3">
+                            <Column editable="false" title="MENU" type="java.lang.Object"/>
+                            <Column editable="false" title="QTY" type="java.lang.Object"/>
+                            <Column editable="false" title="SUBTOTAL" type="java.lang.Object"/>
+                          </Table>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JRadioButton" name="cashRadioButton">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="f1" green="f8" red="fc" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="13" green="1c" red="3a" type="rgb"/>
+                    </Property>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="[x]  Tunai"/>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="opaque" type="boolean" value="true"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="qrisRadioButton">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="2a" green="41" red="6e" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="[ ]  QRIS"/>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="opaque" type="boolean" value="true"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="totalCaptionLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="15" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Total"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="totalValueLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="16" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Rp0"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="addMenuButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Buat Pesanan"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>

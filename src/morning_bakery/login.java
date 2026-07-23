@@ -462,7 +462,11 @@ public class login extends javax.swing.JFrame {
             return;
         }
 
-        new DashboardKasir(2L, username).setVisible(true);
+        if ("stockstaff".equals(username) && "stockstaff".equals(password)) {
+            new DashboardStockStaff(9L, username).setVisible(true);
+        } else {
+            new DashboardKasir(2L, username).setVisible(true);
+        }
         dispose();
     }//GEN-LAST:event_loginButtonActionPerformed
 
