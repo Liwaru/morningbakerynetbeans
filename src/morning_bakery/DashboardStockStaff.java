@@ -16,6 +16,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
@@ -35,6 +37,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -44,6 +47,7 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.plaf.basic.BasicButtonUI;
 
 /**
  * Dashboard utama untuk user Stock Staff (level 6).
@@ -530,6 +534,7 @@ public class DashboardStockStaff extends JFrame {
 
         JPanel brand = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         brand.setOpaque(false);
+        brand.setAlignmentX(Component.LEFT_ALIGNMENT);
         brand.setMaximumSize(new Dimension(Integer.MAX_VALUE, 54));
         JLabel logo = new JLabel("S", SwingConstants.CENTER);
         logo.setOpaque(true);
@@ -549,16 +554,22 @@ public class DashboardStockStaff extends JFrame {
         brandName.setForeground(WHITE);
         brand.add(logo);
         brand.add(brandName);
+        MouseAdapter dashboardLink = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent event) {
+                loadDashboardData(false);
+            }
+        };
+        brand.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        logo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        brandName.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        brand.addMouseListener(dashboardLink);
+        logo.addMouseListener(dashboardLink);
+        brandName.addMouseListener(dashboardLink);
 
         sidebar.add(brand);
         sidebar.add(Box.createVerticalStrut(42));
-        sidebar.add(navButton("Dashboard", true));
-        sidebar.add(Box.createVerticalStrut(10));
-        sidebar.add(navButton("Kelola Stok", false));
-        sidebar.add(Box.createVerticalStrut(10));
-        sidebar.add(navButton("Barang Masuk", false));
-        sidebar.add(Box.createVerticalStrut(10));
-        sidebar.add(navButton("Riwayat Stok", false));
+        sidebar.add(navButton("Kelola Stok", true));
         sidebar.add(Box.createVerticalGlue());
         sidebar.add(createAccountPanel());
         return sidebar;
@@ -566,26 +577,59 @@ public class DashboardStockStaff extends JFrame {
 
     private JButton navButton(String text, boolean selected) {
         JButton button = new JButton(text);
-        button.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+        button.setAlignmentX(Component.LEFT_ALIGNMENT);
+        button.setMinimumSize(new Dimension(209, 50));
         button.setPreferredSize(new Dimension(209, 50));
+        button.setMaximumSize(new Dimension(209, 50));
         button.setHorizontalAlignment(SwingConstants.LEFT);
         button.setBorder(BorderFactory.createEmptyBorder(0, 18, 0, 18));
-        button.setBackground(selected ? BROWN_LIGHT : CREAM);
-        button.setForeground(selected ? WHITE : BROWN_DARK);
+        Color normalColor = selected
+                ? new Color(126, 78, 46) : new Color(117, 70, 43);
+        Color hoverColor = new Color(151, 93, 58);
+        Color pressedColor = new Color(83, 45, 29);
+        button.setUI(new BasicButtonUI());
+        button.setBackground(normalColor);
+        button.setForeground(WHITE);
         button.setFont(new Font("Segoe UI", Font.BOLD, 14));
         button.setFocusPainted(false);
+        button.setRolloverEnabled(false);
         button.setOpaque(true);
         button.setContentAreaFilled(true);
         button.setBorderPainted(false);
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent event) {
+                button.setBackground(hoverColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent event) {
+                button.setBackground(normalColor);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent event) {
+                button.setBackground(pressedColor);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent event) {
+                button.setBackground(button.contains(event.getPoint())
+                        ? hoverColor : normalColor);
+            }
+        });
         return button;
     }
 
     private JPanel createAccountPanel() {
-        JPanel account = new JPanel(new BorderLayout(10, 0));
-        account.setMaximumSize(new Dimension(Integer.MAX_VALUE, 66));
-        account.setBorder(BorderFactory.createEmptyBorder(10, 12, 10, 12));
-        account.setBackground(new Color(74, 43, 32));
+        RoundedPanel account = new RoundedPanel(8, new Color(255, 255, 255, 30));
+        account.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 12));
+        account.setAlignmentX(Component.LEFT_ALIGNMENT);
+        account.setMinimumSize(new Dimension(209, 66));
+        account.setPreferredSize(new Dimension(209, 66));
+        account.setMaximumSize(new Dimension(209, 66));
+        account.setBorder(BorderFactory.createEmptyBorder());
 
         JLabel initial = new JLabel(
                 stockStaffName.substring(0, 1).toUpperCase(), SwingConstants.CENTER);
@@ -593,7 +637,9 @@ public class DashboardStockStaff extends JFrame {
         initial.setBackground(new Color(116, 82, 65));
         initial.setForeground(WHITE);
         initial.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        initial.setPreferredSize(new Dimension(40, 40));
+        initial.setPreferredSize(new Dimension(38, 38));
+        initial.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        initial.setBackground(new Color(255, 255, 255, 45));
 
         JPanel identity = new JPanel();
         identity.setOpaque(false);
@@ -608,8 +654,58 @@ public class DashboardStockStaff extends JFrame {
         identity.add(name);
         identity.add(role);
         identity.add(Box.createVerticalGlue());
-        account.add(initial, BorderLayout.WEST);
-        account.add(identity, BorderLayout.CENTER);
+        account.add(initial);
+        account.add(identity);
+
+        JPopupMenu accountMenu = new JPopupMenu();
+        accountMenu.setOpaque(false);
+        accountMenu.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        RoundedPanel logoutPanel = new RoundedPanel(8, WHITE);
+        logoutPanel.setLayout(new BorderLayout());
+        logoutPanel.setPreferredSize(new Dimension(203, 42));
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setUI(new BasicButtonUI());
+        logoutButton.setForeground(BROWN_DARK);
+        logoutButton.setBackground(WHITE);
+        logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        logoutButton.setHorizontalAlignment(SwingConstants.LEFT);
+        logoutButton.setBorder(BorderFactory.createEmptyBorder(8, 18, 8, 18));
+        logoutButton.setFocusPainted(false);
+        logoutButton.setBorderPainted(false);
+        logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        logoutButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent event) {
+                logoutButton.setBackground(new Color(245, 235, 225));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent event) {
+                logoutButton.setBackground(WHITE);
+            }
+        });
+        logoutButton.addActionListener(event -> {
+            accountMenu.setVisible(false);
+            dispose();
+            new login().setVisible(true);
+        });
+        logoutPanel.add(logoutButton, BorderLayout.CENTER);
+        accountMenu.add(logoutPanel);
+        MouseAdapter accountMenuLink = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent event) {
+                accountMenu.show(account, 0,
+                        -accountMenu.getPreferredSize().height - 4);
+            }
+        };
+        account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        initial.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        name.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        role.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        account.addMouseListener(accountMenuLink);
+        initial.addMouseListener(accountMenuLink);
+        name.addMouseListener(accountMenuLink);
+        role.addMouseListener(accountMenuLink);
         return account;
     }
 
@@ -683,15 +779,15 @@ public class DashboardStockStaff extends JFrame {
     private JPanel createStatistics() {
         JPanel cards = new JPanel(new GridLayout(1, 4, 14, 0));
         cards.setOpaque(false);
-        cards.add(statCard("Total Produk", totalProductsValue, BROWN_LIGHT));
-        cards.add(statCard("Stok Menipis", lowStockValue, WARNING));
-        cards.add(statCard("Barang Masuk Hari Ini", incomingValue, new Color(104, 132, 91)));
-        cards.add(statCard("Stok Habis", outOfStockValue, DANGER));
+        cards.add(statCard("Total Produk", totalProductsValue, new Color(181, 119, 79)));
+        cards.add(statCard("Stok Menipis", lowStockValue, new Color(164, 104, 67)));
+        cards.add(statCard("Barang Masuk Hari Ini", incomingValue, new Color(145, 87, 53)));
+        cards.add(statCard("Stok Habis", outOfStockValue, new Color(126, 78, 46)));
         return cards;
     }
 
     private JPanel statCard(String title, JLabel value, Color accent) {
-        RoundedPanel card = new RoundedPanel(10, BROWN_DARK);
+        GradientPanel card = new GradientPanel(BROWN_MID, BROWN_DARK, 10);
         card.setLayout(new BorderLayout());
         card.setBorder(BorderFactory.createEmptyBorder(16, 18, 16, 18));
         JLabel caption = new JLabel(title);
@@ -723,12 +819,17 @@ public class DashboardStockStaff extends JFrame {
         table.setSelectionBackground(new Color(151, 99, 70));
         table.setSelectionForeground(WHITE);
         table.setShowVerticalLines(false);
+        table.setShowHorizontalLines(true);
+        table.setIntercellSpacing(new Dimension(0, 1));
         table.setGridColor(new Color(151, 99, 70));
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.getTableHeader().setPreferredSize(new Dimension(0, 38));
         table.getTableHeader().setBackground(new Color(150, 99, 70));
         table.getTableHeader().setForeground(WHITE);
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 11));
         table.getTableHeader().setReorderingAllowed(false);
+        ((DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(SwingConstants.CENTER);
         DefaultTableCellRenderer padded = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(
@@ -746,11 +847,33 @@ public class DashboardStockStaff extends JFrame {
         };
         padded.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         table.setDefaultRenderer(Object.class, padded);
-        table.getColumnModel().getColumn(0).setPreferredWidth(140);
-        table.getColumnModel().getColumn(1).setPreferredWidth(220);
+
+        DefaultTableCellRenderer centered = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable renderedTable, Object value, boolean selected,
+                    boolean focused, int row, int column) {
+                Component component = super.getTableCellRendererComponent(
+                        renderedTable, value, selected, focused, row, column);
+                if (!selected) {
+                    component.setBackground(row % 2 == 0
+                            ? new Color(125, 75, 47) : new Color(111, 67, 44));
+                    component.setForeground(WHITE);
+                }
+                return component;
+            }
+        };
+        centered.setHorizontalAlignment(SwingConstants.CENTER);
+        centered.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 8));
+        table.getColumnModel().getColumn(0).setCellRenderer(centered);
+        table.getColumnModel().getColumn(2).setCellRenderer(centered);
+        table.getColumnModel().getColumn(3).setCellRenderer(centered);
+        table.getColumnModel().getColumn(4).setCellRenderer(centered);
+        table.getColumnModel().getColumn(0).setPreferredWidth(170);
+        table.getColumnModel().getColumn(1).setPreferredWidth(260);
         table.getColumnModel().getColumn(2).setPreferredWidth(150);
-        table.getColumnModel().getColumn(3).setPreferredWidth(65);
-        table.getColumnModel().getColumn(4).setPreferredWidth(90);
+        table.getColumnModel().getColumn(3).setPreferredWidth(80);
+        table.getColumnModel().getColumn(4).setPreferredWidth(110);
 
         JScrollPane tableScroll = new JScrollPane(table);
         tableScroll.setBorder(BorderFactory.createLineBorder(new Color(177, 126, 94)));
@@ -804,11 +927,11 @@ public class DashboardStockStaff extends JFrame {
     }
 
     private JPanel createActivityPanel() {
-        RoundedPanel panel = new RoundedPanel(18, WHITE);
+        GradientPanel panel = new GradientPanel(BROWN_LIGHT, BROWN_DARK, 18);
         panel.setLayout(new BorderLayout(0, 12));
         panel.setBorder(BorderFactory.createEmptyBorder(18, 20, 18, 20));
         panel.add(sectionHeader("Aktivitas Terbaru",
-                "Perubahan stok terbaru oleh petugas"), BorderLayout.NORTH);
+                "Perubahan stok terbaru oleh petugas", true), BorderLayout.NORTH);
         activityList.setOpaque(false);
         activityList.setLayout(new BoxLayout(activityList, BoxLayout.Y_AXIS));
         activityList.add(activityRow("--:--", "Belum ada aktivitas stok."));
@@ -840,13 +963,13 @@ public class DashboardStockStaff extends JFrame {
         row.setOpaque(false);
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
         row.setBorder(BorderFactory.createMatteBorder(
-                0, 0, 1, 0, new Color(236, 230, 225)));
+                0, 0, 1, 0, new Color(177, 126, 94)));
         JLabel timeLabel = new JLabel(time);
         timeLabel.setPreferredSize(new Dimension(55, 36));
-        timeLabel.setForeground(BROWN_LIGHT);
+        timeLabel.setForeground(new Color(255, 220, 190));
         timeLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
         JLabel activityLabel = new JLabel(description);
-        activityLabel.setForeground(BROWN_DARK);
+        activityLabel.setForeground(WHITE);
         activityLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         row.add(timeLabel, BorderLayout.WEST);
         row.add(activityLabel, BorderLayout.CENTER);

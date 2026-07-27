@@ -40,6 +40,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.Scrollable;
 import javax.swing.JTable;
@@ -608,11 +609,57 @@ public class DashboardKasir extends JFrame {
         accountText.add(roleLabel);
         accountPanel.add(initial, BorderLayout.WEST);
         accountPanel.add(accountText, BorderLayout.CENTER);
+        addLogoutPopup(accountPanel, initial, nameLabel, roleLabel);
 
         sidebar.add(brandPanel, BorderLayout.NORTH);
         sidebar.add(menuPanel, BorderLayout.CENTER);
         sidebar.add(accountPanel, BorderLayout.SOUTH);
         return sidebar;
+    }
+
+    private void addLogoutPopup(JPanel account, JLabel initial, JLabel name, JLabel role) {
+        JPopupMenu menu = new JPopupMenu();
+        menu.setOpaque(false);
+        menu.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        RoundedPanel logoutPanel = new RoundedPanel(
+                new BorderLayout(), WHITE, WHITE, 8);
+        logoutPanel.setPreferredSize(new Dimension(218, 42));
+        JButton logout = new JButton("Logout");
+        logout.setUI(new BasicButtonUI());
+        logout.setForeground(BROWN_DARK);
+        logout.setBackground(WHITE);
+        logout.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        logout.setHorizontalAlignment(SwingConstants.LEFT);
+        logout.setBorder(BorderFactory.createEmptyBorder(8, 18, 8, 18));
+        logout.setFocusPainted(false);
+        logout.setBorderPainted(false);
+        logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        logout.addMouseListener(new MouseAdapter() {
+            @Override public void mouseEntered(MouseEvent event) {
+                logout.setBackground(new Color(245, 235, 225));
+            }
+
+            @Override public void mouseExited(MouseEvent event) {
+                logout.setBackground(WHITE);
+            }
+        });
+        logout.addActionListener(event -> {
+            menu.setVisible(false);
+            dispose();
+            new login().setVisible(true);
+        });
+        logoutPanel.add(logout, BorderLayout.CENTER);
+        menu.add(logoutPanel);
+        MouseAdapter listener = new MouseAdapter() {
+            @Override public void mouseClicked(MouseEvent event) {
+                menu.show(account, 0, -menu.getPreferredSize().height - 4);
+            }
+        };
+        account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        account.addMouseListener(listener);
+        initial.addMouseListener(listener);
+        name.addMouseListener(listener);
+        role.addMouseListener(listener);
     }
 
     private JButton createNavButton(String text, boolean active) {

@@ -30,7 +30,9 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -534,6 +536,24 @@ public class Pesanan extends JFrame {
 
         accountNameLabel.setText(cashierName);
         accountInitialLabel.setText(cashierName.substring(0, 1).toUpperCase(Locale.ROOT));
+        JPopupMenu accountMenu = new JPopupMenu();
+        JMenuItem logout = new JMenuItem("Logout");
+        logout.addActionListener(event -> {
+            dispose();
+            new login().setVisible(true);
+        });
+        accountMenu.add(logout);
+        MouseAdapter accountListener = new MouseAdapter() {
+            @Override public void mouseClicked(MouseEvent event) {
+                accountMenu.show(accountPanel, 0,
+                        -accountMenu.getPreferredSize().height - 4);
+            }
+        };
+        accountPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        accountPanel.addMouseListener(accountListener);
+        accountInitialLabel.addMouseListener(accountListener);
+        accountNameLabel.addMouseListener(accountListener);
+        accountRoleLabel.addMouseListener(accountListener);
         scanField.addActionListener(event -> loadOrders(true));
         scanButton.addActionListener(event -> loadOrders(true));
         searchMenuField.getDocument().addDocumentListener((SimpleDocumentListener) () -> {

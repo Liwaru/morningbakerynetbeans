@@ -32,8 +32,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -308,6 +310,24 @@ public class riwayat_pesanan extends JFrame {
         accountText.add(role);
         account.add(initial, BorderLayout.WEST);
         account.add(accountText, BorderLayout.CENTER);
+        JPopupMenu accountMenu = new JPopupMenu();
+        JMenuItem logout = new JMenuItem("Logout");
+        logout.addActionListener(event -> {
+            dispose();
+            new login().setVisible(true);
+        });
+        accountMenu.add(logout);
+        MouseAdapter accountListener = new MouseAdapter() {
+            @Override public void mouseClicked(MouseEvent event) {
+                accountMenu.show(account, 0,
+                        -accountMenu.getPreferredSize().height - 4);
+            }
+        };
+        account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        account.addMouseListener(accountListener);
+        initial.addMouseListener(accountListener);
+        name.addMouseListener(accountListener);
+        role.addMouseListener(accountListener);
         sidebar.add(brand, BorderLayout.NORTH);
         sidebar.add(menu, BorderLayout.CENTER);
         sidebar.add(account, BorderLayout.SOUTH);
