@@ -569,7 +569,12 @@ public class DashboardStockStaff extends JFrame {
 
         sidebar.add(brand);
         sidebar.add(Box.createVerticalStrut(42));
-        sidebar.add(navButton("Kelola Stok", true));
+        JButton stockButton = navButton("Kelola Stok", false);
+        stockButton.addActionListener(event -> {
+            new KelolaStok(stockStaffId, stockStaffName, "Stock Staff").setVisible(true);
+            dispose();
+        });
+        sidebar.add(stockButton);
         sidebar.add(Box.createVerticalGlue());
         sidebar.add(createAccountPanel());
         return sidebar;

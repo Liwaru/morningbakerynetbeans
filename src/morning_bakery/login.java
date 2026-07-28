@@ -464,6 +464,8 @@ public class login extends javax.swing.JFrame {
 
         if ("stockstaff".equals(username) && "stockstaff".equals(password)) {
             new DashboardStockStaff(9L, username).setVisible(true);
+        } else if ("manager".equalsIgnoreCase(username)) {
+            new DashboardManager(3L, username).setVisible(true);
         } else {
             new DashboardKasir(2L, username).setVisible(true);
         }
