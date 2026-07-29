@@ -1,5 +1,6 @@
 package morning_bakery;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -28,14 +29,15 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
@@ -57,8 +59,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -95,7 +95,7 @@ public class DataAbsensi extends JFrame {
     private final JComboBox<String> roleFilter = new JComboBox<>(new String[]{
         "Semua Role", "Waiter", "Baker", "Kasir", "Manager", "Owner"
     });
-    private final JTextField dateFilter = new JTextField();
+    private final JDateChooser dateFilter = new JDateChooser();
     private final JComboBox<String> statusFilter = new JComboBox<>(new String[]{
         "Semua Status", "Hadir", "Terlambat", "Izin", "Sakit", "Tidak Hadir"
     });
@@ -120,7 +120,6 @@ public class DataAbsensi extends JFrame {
         setLocationRelativeTo(null);
         loadWindowIcon();
         initComponentsCustom();
-        initFilterOptions();
         loadAbsensiData();
     }
 
@@ -243,19 +242,28 @@ public class DataAbsensi extends JFrame {
         card.add(initial);
         card.add(identity);
         JPopupMenu popup = new JPopupMenu();
-        JButton logout = actionButton("Logout", WHITE, BROWN_DARK);
-        logout.setPreferredSize(new Dimension(218, 42));
+        popup.setLayout(new BorderLayout());
+        popup.setPreferredSize(new Dimension(224, 50));
+        popup.setBackground(BROWN_DARK);
+        popup.setBorder(BorderFactory.createLineBorder(
+                new Color(255, 255, 255, 75)));
+        JButton logout = actionButton("Logout", CREAM, BROWN_DARK);
         logout.setHorizontalAlignment(SwingConstants.LEFT);
+        logout.setBorder(new EmptyBorder(0, 16, 0, 16));
         logout.addActionListener(event -> {
             popup.setVisible(false);
             dispose();
             new login().setVisible(true);
         });
-        popup.add(logout);
+        popup.add(logout, BorderLayout.CENTER);
         MouseAdapter showPopup = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
-                popup.show(card, 0, -popup.getPreferredSize().height - 4);
+                if (popup.isVisible()) {
+                    popup.setVisible(false);
+                } else {
+                    popup.show(card, 0, -popup.getPreferredSize().height - 5);
+                }
             }
         };
         card.addMouseListener(showPopup);
@@ -315,19 +323,34 @@ public class DataAbsensi extends JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setPreferredSize(new Dimension(900, 530));
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 530));
+
+        JPanel heading = new JPanel();
+        heading.setOpaque(false);
+        heading.setLayout(new BorderLayout());
+        heading.setAlignmentX(Component.CENTER_ALIGNMENT);
+        heading.setMaximumSize(new Dimension(Integer.MAX_VALUE, 52));
+        JPanel headingText = new JPanel();
+        headingText.setOpaque(false);
+        headingText.setLayout(new BoxLayout(headingText, BoxLayout.Y_AXIS));
         JLabel title = new JLabel("Riwayat Absensi");
         title.setForeground(WHITE);
         title.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        title.setAlignmentX(Component.LEFT_ALIGNMENT);
         recordCount.setForeground(new Color(255, 222, 198));
         recordCount.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        panel.add(title);
-        panel.add(Box.createVerticalStrut(4));
-        panel.add(recordCount);
+        recordCount.setAlignmentX(Component.LEFT_ALIGNMENT);
+        headingText.add(title);
+        headingText.add(Box.createVerticalStrut(3));
+        headingText.add(recordCount);
+        heading.add(headingText, BorderLayout.WEST);
+        panel.add(heading);
         panel.add(Box.createVerticalStrut(15));
-        panel.add(createFilterPanel());
+        JPanel filterPanel = createFilterPanel();
+        filterPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(filterPanel);
         panel.add(Box.createVerticalStrut(15));
         JScrollPane tableScroll = new JScrollPane(table);
-        tableScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
+        tableScroll.setAlignmentX(Component.CENTER_ALIGNMENT);
         tableScroll.setBorder(BorderFactory.createLineBorder(
                 new Color(255, 255, 255, 40)));
         tableScroll.getViewport().setBackground(BROWN);
@@ -346,7 +369,7 @@ public class DataAbsensi extends JFrame {
         filters.setBorder(new EmptyBorder(12, 14, 12, 14));
         filters.setMaximumSize(new Dimension(Integer.MAX_VALUE, 88));
         configureFilterField(nameFilter, "Cari nama karyawan");
-        configureFilterField(dateFilter, "dd/MM/yyyy");
+        configureDateChooser();
         configureCombo(roleFilter);
         configureCombo(statusFilter);
         JButton apply = actionButton("Filter", CREAM, BROWN_DARK);
@@ -373,18 +396,12 @@ public class DataAbsensi extends JFrame {
         return filters;
     }
 
-    private void initFilterOptions() {
-        nameFilter.getDocument().addDocumentListener(new DocumentListener() {
-            @Override public void insertUpdate(DocumentEvent event) { }
-            @Override public void removeUpdate(DocumentEvent event) { }
-            @Override public void changedUpdate(DocumentEvent event) { }
-        });
-    }
-
     private void configureAbsensiTable() {
         table.setRowSorter(sorter);
-        table.setRowHeight(62);
+        table.setRowHeight(58);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setFillsViewportHeight(true);
+        table.setIntercellSpacing(new Dimension(0, 1));
         table.setShowVerticalLines(false);
         table.setShowHorizontalLines(true);
         table.setGridColor(new Color(255, 255, 255, 42));
@@ -393,15 +410,16 @@ public class DataAbsensi extends JFrame {
         table.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         table.setSelectionBackground(new Color(150, 94, 57));
         table.setSelectionForeground(WHITE);
-        table.getTableHeader().setPreferredSize(new Dimension(0, 44));
+        table.getTableHeader().setPreferredSize(new Dimension(0, 46));
         table.getTableHeader().setBackground(new Color(160, 106, 75));
         table.getTableHeader().setForeground(WHITE);
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 11));
         table.getTableHeader().setReorderingAllowed(false);
-        int[] widths = {190, 90, 110, 100, 105, 130, 110, 90};
+        int[] widths = {190, 82, 108, 98, 100, 128, 104, 82};
         for (int index = 0; index < widths.length; index++) {
             TableColumn column = table.getColumnModel().getColumn(index);
             column.setPreferredWidth(widths[index]);
+            column.setMinWidth(index == 0 ? 150 : 70);
         }
         table.getColumnModel().getColumn(0).setCellRenderer(new NameRenderer());
         table.getColumnModel().getColumn(6).setCellRenderer(new StatusRenderer());
@@ -469,14 +487,6 @@ public class DataAbsensi extends JFrame {
         String role = (String) roleFilter.getSelectedItem();
         String status = (String) statusFilter.getSelectedItem();
         LocalDate selectedDate = parseDateFilter();
-        if (!dateFilter.getText().trim().isEmpty()
-                && !"dd/MM/yyyy".equalsIgnoreCase(dateFilter.getText().trim())
-                && selectedDate == null) {
-            JOptionPane.showMessageDialog(this,
-                    "Format tanggal harus dd/MM/yyyy.",
-                    "Tanggal Tidak Valid", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
         sorter.setRowFilter(new RowFilter<AbsensiTableModel, Integer>() {
             @Override
             public boolean include(Entry<? extends AbsensiTableModel,
@@ -497,7 +507,7 @@ public class DataAbsensi extends JFrame {
 
     private void resetAbsensiFilter() {
         nameFilter.setText("");
-        dateFilter.setText("");
+        dateFilter.setDate(null);
         roleFilter.setSelectedIndex(0);
         statusFilter.setSelectedIndex(0);
         applyAbsensiFilter();
@@ -509,15 +519,13 @@ public class DataAbsensi extends JFrame {
     }
 
     private LocalDate parseDateFilter() {
-        String text = dateFilter.getText().trim();
-        if (text.isEmpty() || "dd/MM/yyyy".equalsIgnoreCase(text)) {
+        Calendar selected = dateFilter.getCalendar();
+        if (selected == null) {
             return null;
         }
-        try {
-            return LocalDate.parse(text, DATE_FORMAT);
-        } catch (DateTimeParseException exception) {
-            return null;
-        }
+        return LocalDate.of(selected.get(Calendar.YEAR),
+                selected.get(Calendar.MONTH) + 1,
+                selected.get(Calendar.DAY_OF_MONTH));
     }
 
     private void openAbsensiDetail(long idAbsensi) {
@@ -604,8 +612,25 @@ public class DataAbsensi extends JFrame {
         field.setBackground(WHITE);
         field.setForeground(BROWN_DARK);
         field.setToolTipText(hint);
-        if ("dd/MM/yyyy".equals(hint)) field.setText(hint);
         field.setBorder(new EmptyBorder(10, 12, 10, 12));
+    }
+
+    private void configureDateChooser() {
+        dateFilter.setDateFormatString("dd/MM/yyyy");
+        dateFilter.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        dateFilter.setBackground(WHITE);
+        dateFilter.setToolTipText("Pilih tanggal absensi");
+        dateFilter.setPreferredSize(new Dimension(150, 40));
+        dateFilter.getCalendarButton().setBackground(CREAM);
+        dateFilter.getCalendarButton().setForeground(BROWN_DARK);
+        dateFilter.getCalendarButton().setFocusPainted(false);
+        Component editor = dateFilter.getDateEditor().getUiComponent();
+        if (editor instanceof JComponent component) {
+            component.setBorder(new EmptyBorder(8, 10, 8, 6));
+            component.setBackground(WHITE);
+            component.setForeground(BROWN_DARK);
+            component.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        }
     }
 
     private void configureCombo(JComboBox<String> combo) {
